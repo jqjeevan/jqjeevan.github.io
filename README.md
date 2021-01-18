@@ -1,1 +1,0 @@
-# jqjeevan.github.io
