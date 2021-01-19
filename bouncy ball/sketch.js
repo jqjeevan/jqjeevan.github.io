@@ -1,6 +1,6 @@
 // Bouncing Balls Array Demo
 
-let bouncingBalls = []
+let bouncingBalls = [];
 
 
 function setup() {
@@ -20,7 +20,7 @@ function mousePressed(){
     diameter: random(25,100),
     dx: random(-5,5),
     dy: random(-5,5),
-    tcolor: color(random(255), random(255), random(255), random(255))
+    tcolor: color(random(255), random(255), random(255), random(255)),
   };
   bouncingBalls.push(ball);
 }
@@ -45,7 +45,7 @@ function moveBall(){
 function displayBall(){
   for (let i=0; i<bouncingBalls.length; i++){
     noStroke();
-    fill(bouncingBalls[i].tcolor)
-    ellipse(bouncingBallsi[i].x, bouncingBalls[i].y, bouncingBalls[i].diameter, bouncingBalls[i].diameter);
+    fill(bouncingBalls[i].tcolor);
+    ellipse(bouncingBalls[i].x, bouncingBalls[i].y, bouncingBalls[i].diameter, bouncingBalls[i].diameter);
   }
 }
