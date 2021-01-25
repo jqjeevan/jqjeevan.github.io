@@ -1,7 +1,7 @@
 // perlin noise
 
 let rectHeights;
-let bikeLocation = 0;
+let bikeLocation = 0
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
