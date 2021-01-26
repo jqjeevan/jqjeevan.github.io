@@ -3,7 +3,7 @@
 
 let bullets = [];
 let playerX;
-let playerY;
+let playerY
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
