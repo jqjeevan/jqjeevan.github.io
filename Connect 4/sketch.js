@@ -13,7 +13,8 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // bgMusic.loop();
+  bgMusic.setVolume(0.3);
+  bgMusic.loop();
 
   rows = grid.length;
   cols = grid[0].length;
@@ -56,6 +57,7 @@ function displayGrid(){
 function mousePressed(){
 
   clickS.play();
+
 
   let x = Math.floor(mouseX/cellWidth);
   let y = Math.floor(mouseY/cellHeight);
