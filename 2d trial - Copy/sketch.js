@@ -30,8 +30,6 @@ function mousePressed() {
   else if (playerColor === "red"){
     playerColor = "blue";
   }
-
-  placeCounter();
 }
 
 function keyPressed() {
@@ -81,12 +79,4 @@ function createEmptyGrid(cols, rows) {
     }
   }
   return empty;
-}
-
-function placeCounter(cols, rows){
-  for (let y=0; y<cols; y++){
-    if (grid[y][x] === "white"){
-      fill(playerColor);
-    }
-  }
 }
