@@ -39,7 +39,7 @@ function displayGrid() {
       else if (grid[y][x] === 1) {
         fill("red");
       }
-      else if (grid[y][x] === 9) {
+      else if (grid[y][x] === 2) {
         fill("blue");
       }
       rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
@@ -59,14 +59,18 @@ function createEmptyGrid(cols, rows) {
 }
 
 function changePlayer(x, y){
+ 
   if (grid[y][x] === 0) {
-    if (player === false){
-      grid[y][x] = 1;
-      player = true;
-    }
-    else {
-      grid[y][x] = 9;
-      player = false;
+    for (let i=0; i<COLS; i++){
+      if (player === false){
+        grid[y][x] = 1;
+        player = true;
+      }
+      else {
+        grid[y][x] = 2;
+        player = false;
+      }
     }
   }
 }
+
