@@ -14,7 +14,7 @@ function setup() {
   cellWidth = width / COLS;
   cellHeight = height / ROWS;
   //add player to grid
-  // grid[playerY][playerX] = 9;
+  // grid[playerY][playerX] = 2;
 }
 
 function draw() {
@@ -61,16 +61,15 @@ function createEmptyGrid(cols, rows) {
 function changePlayer(x, y){
  
   if (grid[y][x] === 0) {
-    for (let i=0; i<COLS; i++){
-      if (player === false){
-        grid[y][x] = 1;
-        player = true;
-      }
-      else {
-        grid[y][x] = 2;
-        player = false;
-      }
+    if (player === false){
+      grid[y][x] = 1;
+      player = true;
+    }
+    else {
+      grid[y][x] = 2;
+      player = false;
     }
   }
 }
+
 
