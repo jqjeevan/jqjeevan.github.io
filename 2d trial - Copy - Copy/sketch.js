@@ -1,72 +1,125 @@
-const TSIZE = 50;
 const COLS = 7;
 const ROWS = 6;
-const grid = Array(ROWS+1).fill().map(() => Array(COLS).fill(-1));
-let currentPlayer = 0;
-const queue = [];
-let currentMove = -1;
-let currentRow = 0;
+const WIDTH = 50;
+const CWIDTH = WIDTH*(3/4);
+
+const GRID = Array(6).fill().map(() => Array(7).fill());
+
+let whichPlayer = 1;
 
 function setup() {
-  createCanvas(COLS*TSIZE, ROWS*TSIZE + TSIZE);
-}
-
-function mousePressed() {
-  queue.push(floor(mouseX / TSIZE));
-}
-
-function whoWon() {
-  let win = null;
+  createCanvas(COLS*WIDTH, ROWS*WIDTH + WIDTH);
 }
 
 function draw() {
-  background(255);
-  noStroke();
-  fill(255, 255, 0);
-  rect(0, TSIZE, width, height-TSIZE);
-  for (let i = 1; i < COLS; i++) {
-    stroke(175, 175, 0);
-    line(i*TSIZE, TSIZE, i*TSIZE, height);
-  }
-  for (let j = 0; j < ROWS; j++) {
-    for (let i = 0; i < COLS; i++) {
-      stroke(175, 175, 0);
-      fill(255);
-      if (grid[j][i] === 0) {
-        fill(255, 0, 0);
-      } else if (grid[j][i] === 1) {
-        fill(0, 0, 255);
+  background("purple");
+  fill("white");
+  rect(-1, -1, width+2, WIDTH);
+  makeGame();
+}
+
+function makeGame(){
+  for (let y = 0; y < ROWS; y++){
+    for (let x = 0; x < COLS; x++){
+      fill("white");
+
+      if (GRID[y][x] === 1) {
+        fill("blue");
       }
-      circle(i*TSIZE + TSIZE/2, j*TSIZE + 3*TSIZE/2, 0.8 * TSIZE);
-    }
-  }
-  noStroke();
-  if (currentPlayer === 0) {
-    fill(255, 0, 0);
-  } else {
-    fill(0, 0, 255);
-  }
-  circle(mouseX, TSIZE/2, 0.8 * TSIZE);
-  if (currentMove < 0) {
-    if (queue.length > 0) {
-      currentMove = queue.shift();
-      if (grid[0][currentMove] < 0) {
-        currentRow = 0;
-        grid[currentRow][currentMove] = currentPlayer;
-      } else {
-        currentMove = -1;
+      else if (GRID[y][x] === 2) {
+        fill("red");
       }
-    }
-  } else {
-    if (grid[currentRow+1][currentMove] < 0 && currentRow < ROWS-1) {
-      if (frameCount % 2 === 0) {
-        grid[currentRow+1][currentMove] = grid[currentRow][currentMove];
-        grid[currentRow][currentMove] = -1;
-        currentRow++;
-      }
-    } else {
-      currentMove = -1;
-      currentPlayer = 1 - currentPlayer;
+      ellipse(x*WIDTH + WIDTH/2, y*WIDTH + 3*WIDTH/2, CWIDTH);
     }
   }
 }
+
+function sPlay(){
+  if (whichPlayer === 1) {
+    fill("blue");
+  }
+  else if (whichPlayer === 2) {
+    fill("red");
+  }
+}
+
+function winCheck() {
+  // Test Horizontal 4
+  for (let y = 0; y < ROWS; y++) {
+    for (let x = 0; x <= COLS-4; x++) {
+      const test = GRID[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let k = 0; k < 4; k++) {
+          if (GRID[y][x+k] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  // Test Vertical 4
+  for (let y = 0; y <= ROWS-4; y++) {
+    for (let x = 0; x < COLS; x++) {
+      const test = GRID[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let k = 0; k < 4; k++) {
+          if (GRID[y+k][x] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  // Test Diagonal 4
+  for (let y = 0; y <= ROWS-4; y++) {
+    for (let x = 0; x <= COLS-4; x++) {
+      const test = GRID[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let k = 0; k < 4; k++) {
+          if (GRID[y+k][x+k] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  // Test Antidiagonal 4
+  for (let y = 0; y <= ROWS-4; y++) {
+    for (let x = 4; x < COLS; x++) {
+      const test = GRID[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let k = 0; k < 4; k++) {
+          if (GRID[y+k][x-k] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          return true;
+        }
+      }
+    }
+  }
+  
+  return false;
+}
+
+function mousePressed() {
+  
+}
+
