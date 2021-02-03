@@ -1,14 +1,15 @@
-const COLS = 7;
+const COLS = 8;
 const ROWS = 6;
-const WIDTH = 50;
+const WIDTH = 80;
 const CWIDTH = WIDTH*(3/4);
 
-const GRID = Array(6).fill().map(() => Array(7).fill());
+const GRID = Array(ROWS).fill(0).map(() => Array(COLS).fill(0));
 
 let whichPlayer = 1;
 
 function setup() {
-  createCanvas(COLS*WIDTH, ROWS*WIDTH + WIDTH);
+  let myCanvas = createCanvas(COLS*WIDTH, ROWS*WIDTH + WIDTH);
+  myCanvas.position(windowWidth*0.3, windowHeight*0.1);
 }
 
 function draw() {
@@ -119,7 +120,8 @@ function winCheck() {
   return false;
 }
 
-function mousePressed() {
-  
+function mousePressed(x, y) {
+  let x = Math.floor(mouseX / cellWidth);
+  let y = Math.floor(mouseY / cellHeight);
 }
 
