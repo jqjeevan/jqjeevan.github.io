@@ -8,6 +8,8 @@ let player = false;
 let playerPos;
 
 
+
+
 function setup() {
   let myCanvas = createCanvas(windowWidth*0.5, windowHeight*0.8);
   myCanvas.position(windowWidth*0.25, windowHeight*0.1);
@@ -24,7 +26,7 @@ function draw() {
   background("yellow");
   displayGrid();
 
-  // highlightSqaure();
+  highlightSqaure();
 }
 
 function mousePressed() {
@@ -77,8 +79,8 @@ function changePlayer(x, y){
   }
 }
 
-// function highlightSqaure(x, y) {
-//   if () {
-//     fill("black");
-//   }
-// }
+function highlightSqaure(x, y) {
+  if (mouseX === x*cellWidth && mouseY === y*cellHeight) {
+    fill("black");
+  }
+}
