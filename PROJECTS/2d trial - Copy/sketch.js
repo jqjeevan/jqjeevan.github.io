@@ -5,21 +5,26 @@ let playerX = 0;
 let playerY = 0;
 let playerColor = "blue";
 let player = false;
+let playerPos;
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  let myCanvas = createCanvas(windowWidth*0.5, windowHeight*0.8);
+  myCanvas.position(windowWidth*0.25, windowHeight*0.1);
 
   grid = createEmptyGrid(COLS, ROWS);
   cellWidth = width / COLS;
   cellHeight = height / ROWS;
-  //add player to grid
-  // grid[playerY][playerX] = 2;
 }
 
 function draw() {
-  background(220);
+
+  playerPos = floor(mouseX/cellWidth);
+
+  background("yellow");
   displayGrid();
+
+  // highlightSqaure();
 }
 
 function mousePressed() {
@@ -42,7 +47,7 @@ function displayGrid() {
       else if (grid[y][x] === 2) {
         fill("blue");
       }
-      rect(x*cellWidth, y*cellHeight, cellWidth, cellHeight);
+      ellipse(x*cellWidth+cellWidth/2, y*cellHeight+ cellHeight/2, cellHeight, cellHeight);
     }
   }
 }
@@ -72,4 +77,8 @@ function changePlayer(x, y){
   }
 }
 
-
+// function highlightSqaure(x, y) {
+//   if () {
+//     fill("black");
+//   }
+// }
