@@ -5,19 +5,21 @@ let playerX = 0;
 let playerY = 0;
 let playerColor = "blue";
 let player = false;
-let playerPos;
+let playertoggle = "blue";
 let click;
 let bgmusic;
+let ifWin = 0;
 
 function preload(){
-  soundFormats("wav", "flac");
   click = loadSound("assets/click.wav");
-  bgmusic = loadSound("assets/bg.flac");
+  bgmusic = loadSound("assets/backgroundmusic.mp3");
 }
 
 function setup() {
-  let myCanvas = createCanvas(windowWidth*0.5, windowHeight*0.8);
-  myCanvas.position(windowWidth*0.25, windowHeight*0.1);
+  bgmusic.loop();
+
+  let myCanvas = createCanvas(windowWidth*0.7, windowHeight*0.8);
+  myCanvas.position(windowWidth*0.15, windowHeight*0.1);
 
   grid = createEmptyGrid(COLS, ROWS);
   cellWidth = width / COLS;
@@ -27,14 +29,10 @@ function setup() {
 }
 
 function draw() {
-  bgmusic.loop();
-
-  playerPos = floor(mouseX/cellWidth);
-
 
   displayGrid();
+  winCheck();
 
-  highlightSqaure();
 }
 
 function mousePressed() {
@@ -42,6 +40,11 @@ function mousePressed() {
   let y = Math.floor(mouseY / cellHeight);
 
   changePlayer(x, y);
+
+  click.play();
+
+  finalWinToggle();
+
 }
 
 
@@ -87,8 +90,102 @@ function changePlayer(x, y){
   }
 }
 
-function highlightSqaure(x, y) {
-  if (mouseX === x*cellWidth && mouseY === y*cellHeight) {
-    fill("black");
+function winCheck() {
+  // Test Horizontal 4
+  for (let y = 0; y < ROWS; y++) {
+    for (let x = 0; x <= COLS-4; x++) {
+      const test = grid[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let checkAround = 0; checkAround < 4; checkAround++) {
+          if (grid[y][x+checkAround] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          ifWin = 1;
+        }
+      }
+    }
+  }
+  
+  // Test Vertical 4
+  for (let y = 0; y <= ROWS-4; y++) {
+    for (let x = 0; x < COLS; x++) {
+      const test = grid[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let checkAround = 0; checkAround < 4; checkAround++) {
+          if (grid[y+checkAround][x] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          ifWin = 1;
+        }
+      }
+    }
+  }
+  
+  // Test Diagonal 4
+  for (let y = 0; y <= ROWS-4; y++) {
+    for (let x = 0; x <= COLS-4; x++) {
+      const test = grid[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let checkAround = 0; checkAround < 4; checkAround++) {
+          if (grid[y+checkAround][x+checkAround] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          ifWin = 1;
+        }
+      }
+    }
+  }
+  
+  // Test Antidiagonal 4
+  for (let y = 0; y <= ROWS-4; y++) {
+    for (let x = 4; x < COLS; x++) {
+      const test = grid[y][x];
+      if (test !== 0) {
+        let temp = true;
+        for (let checkAround = 0; checkAround < 4; checkAround++) {
+          if (grid[y+checkAround][x-checkAround] !== test) {
+            temp = false;
+          }
+        }
+        if (temp === true) {
+          ifWin = 1;
+        }
+      }
+    }
+  }
+  if (ifWin === 1) {
+    if (playertoggle === "red"){
+      fill(255, 0, 0);
+      textAlign(CENTER);
+      textSize(50);
+      textFont("georgia");
+      text("Red Wins!", width / 2, height / 3);
+    }
+    else {
+      fill(0, 0, 255);
+      textAlign(CENTER);
+      textSize(50);
+      textFont("georgia");
+      text("Blue Wins!", width / 2, height / 3);
+    }
+  }
+  console.log(ifWin);
+}
+
+function finalWinToggle(){
+  if (playertoggle === "blue"){
+    playertoggle = "red";
+  }
+  else {
+    playertoggle = "blue";
   }
 }
