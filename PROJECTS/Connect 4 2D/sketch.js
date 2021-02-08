@@ -11,23 +11,23 @@ const COLS = 8;
 // Variables used in the program
 let grid, cellWidth, cellHeight;
 let player = false;
-let playertoggle = "blue";
-let click;
-let bgmusic;
-let endImage;
-let ifWin = 0;
+let playerColorToggle = "blue";
+let clickSound;
+let backgroundMusic;
+let endScreenImage;
+let ifWinConditional = 0;
 let whichScreen = 1;
 
 // Preloads 2 sounds and an image for the end screen
 function preload(){
-  click = loadSound("assets/click.wav");
-  bgmusic = loadSound("assets/backgroundmusic.mp3");
-  endImage = loadImage("assets/winscreen.gif");
+  clickSound = loadSound("assets/click.wav");
+  backgroundMusic = loadSound("assets/backgroundmusic.mp3");
+  endScreenImage = loadImage("assets/winscreen.gif");
 }
 
 function setup() {
   // Starts playing the background sound
-  bgmusic.loop();
+  backgroundMusic.loop();
 
   // Loads canvas in the middle of screen
   let myCanvas = createCanvas(windowWidth*0.7, windowHeight*0.8);
@@ -60,12 +60,12 @@ function playScreen() {
 
 function endScreen() {
   // Changes background to the gif image
-  background(endImage);
+  background(endScreenImage);
 
   // If the ifWin Variable is changed to a 1, then it will check who won
-  if (ifWin === 1) {
+  if (ifWinConditional === 1) {
     // If player toggle (which changes after every click) is red, say red wins
-    if (playertoggle === "red"){
+    if (playerColorToggle === "red"){
       fill(255, 0, 0);
       textAlign(CENTER);
       textSize(50);
@@ -92,7 +92,7 @@ function mousePressed() {
   changePlayer(x, y);
 
   // When mouse pressed a sound is made
-  click.play();
+  clickSound.play();
 
   // Switches the player color string to be used to say who wins in endScreen
   finalWinToggle();
@@ -144,20 +144,21 @@ function changePlayer(x, y){
 }
 
 // Checks the array for a connect 4, if it does the ifWIn value is changed to 1, which starts the end screen
+// temp variable is made true, and if the following point on the grid is false, it wont coninue, if true 4 times, a player wins
 function winCheck() {
   // Checks Horizonatal
   for (let y = 0; y < ROWS; y++) {
     for (let x = 0; x <= COLS-4; x++) {
       const test = grid[y][x];
       if (test !== 0) {
-        let temp = true;
+        let tempConditional = true;
         for (let checkAround = 0; checkAround < 4; checkAround++) {
           if (grid[y][x+checkAround] !== test) {
-            temp = false;
+            tempConditional = false;
           }
         }
-        if (temp === true) {
-          ifWin = 1;
+        if (tempConditional === true) {
+          ifWinConditional = 1;
         }
       }
     }
@@ -168,14 +169,14 @@ function winCheck() {
     for (let x = 0; x < COLS; x++) {
       const test = grid[y][x];
       if (test !== 0) {
-        let temp = true;
+        let tempConditional = true;
         for (let checkAround = 0; checkAround < 4; checkAround++) {
           if (grid[y+checkAround][x] !== test) {
-            temp = false;
+            tempConditional = false;
           }
         }
-        if (temp === true) {
-          ifWin = 1;
+        if (tempConditional === true) {
+          ifWinConditional = 1;
         }
       }
     }
@@ -186,14 +187,14 @@ function winCheck() {
     for (let x = 0; x <= COLS-4; x++) {
       const test = grid[y][x];
       if (test !== 0) {
-        let temp = true;
+        let tempConditional = true;
         for (let checkAround = 0; checkAround < 4; checkAround++) {
           if (grid[y+checkAround][x+checkAround] !== test) {
-            temp = false;
+            tempConditional = false;
           }
         }
-        if (temp === true) {
-          ifWin = 1;
+        if (tempConditional === true) {
+          ifWinConditional = 1;
         }
       }
     }
@@ -204,29 +205,30 @@ function winCheck() {
     for (let x = 4; x < COLS; x++) {
       const test = grid[y][x];
       if (test !== 0) {
-        let temp = true;
+        let tempConditional = true;
         for (let checkAround = 0; checkAround < 4; checkAround++) {
           if (grid[y+checkAround][x-checkAround] !== test) {
-            temp = false;
+            tempConditional = false;
           }
         }
-        if (temp === true) {
-          ifWin = 1;
+        if (tempConditional === true) {
+          ifWinConditional = 1;
         }
       }
     }
   }
-  if (ifWin === 1) {
+  // if a player wins, the whichScreen variable changes to a 2, opening the end screen
+  if (ifWinConditional === 1) {
     whichScreen = 2;
   }
 }
 
 // Toggles red or blue for final win screen
 function finalWinToggle(){
-  if (playertoggle === "blue"){
-    playertoggle = "red";
+  if (playerColorToggle === "blue"){
+    playerColorToggle = "red";
   }
   else {
-    playertoggle = "blue";
+    playerColorToggle = "blue";
   }
 }
