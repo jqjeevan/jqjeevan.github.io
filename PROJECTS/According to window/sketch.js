@@ -41,7 +41,7 @@ function setup() {
 function keyPressed() {
   if (key === "r") {
     World.remove(world, bird.body);
-    bird = new Bird(150, 300, 25);
+    bird = new Bird(150, 300, this.r*3);
   }
 }
 
