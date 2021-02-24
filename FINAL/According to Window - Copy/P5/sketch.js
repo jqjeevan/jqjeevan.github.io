@@ -29,7 +29,7 @@ function setup() {
   for (let i = 0; i < 4; i++) {
     BOXS[i] = new Box(windowWidth/1.2, 300 - i * 75, 100, 100);
   }
-  bird = new Bird(200, 520, 25);
+  bird = new Bird(150, 300, 25);
 
   slingshot = new SlingShot(200, 520, bird.body);
 
@@ -43,7 +43,7 @@ function setup() {
   mConstraint = MouseConstraint.create(engine, options);
   World.add(world, mConstraint);
 
-// Collide engine on
+// Collide engine on not working tho
   // Matter.Events.on(engine, "collisionStart", collision);
 }
 
@@ -69,7 +69,7 @@ function draw() {
     box.show();
   }
   slingshot.show();
-  image(slingshotImage, 170, 500, 70, 160);
+  image(slingshotImage, 170, 500, 70, 180);
   bird.show();
 
 }
