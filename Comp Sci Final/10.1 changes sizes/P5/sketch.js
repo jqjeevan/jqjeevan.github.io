@@ -3,6 +3,8 @@ const { Engine, World, Bodies, Mouse, MouseConstraint, Constraint } = Matter;
 let ground;
 const BOXS1 = [];
 const BOXS2 = [];
+const BOXS3 = [];
+const BOXS4 = [];
 const GLASS1 = [];
 let bird;
 let world, engine;
@@ -40,19 +42,25 @@ function setup() {
   ground = new Ground(width / 2, height/1.13, width, 20);
 
   for (let i = 0; i < 3; i++) {
-    BOXS1[i] = new Box(850, 300 - i * 75, 100, 100);
+    BOXS1[i] = new Box(850, 400, 60, 60);
   }
   for (let i = 0; i < 3; i++) {
-    BOXS2[i] = new Box(1150, 300 - i * 75, 100, 100);
+    BOXS2[i] = new Box(1150, 400, 60, 60);
+  }
+  for (let i = 0; i < 5; i++) {
+    BOXS3[i] = new Box(789, 400, 60, 60);
+  }
+  for (let i = 0; i < 5; i++) {
+    BOXS4[i] = new Box(1211, 400, 60, 60);
   }
   for (let i = 0; i < 2; i++) {
-    GLASS1[i] = new Glass(1000, 200, 400, 40);
+    GLASS1[i] = new Glass(1000, 350, 360, 40);
   }
 
-  bird = new Bird(200, 520, 25);
+  bird = new Bird(200, 520, 20);
 
   slingshot = new SlingShot(200, 520, bird.body);
-  pig = new Piggy(1000, 610, 40);
+  pig = new Piggy(1000, 610, 30);
 
 
   const mouse = Mouse.create(theCanvas.elt);
@@ -68,7 +76,7 @@ function setup() {
 function keyPressed() {
   if (key === 'r') {
     World.remove(world, bird.body);
-    bird = new Bird(200, 560, 25);
+    bird = new Bird(200, 560, 20);
     slingshot.attach(bird.body);
   }
 }
@@ -95,6 +103,12 @@ function draw() {
   for (let box of BOXS2) {
     box.show();
   }
+  for (let box of BOXS3) {
+    box.show();
+  }
+  for (let box of BOXS4) {
+    box.show();
+  }
   for (let box of GLASS1) {
     box.show();
   }
@@ -109,6 +123,8 @@ function draw() {
     textSize(40);
     fill("red");
     text("You WIN!!!", width/2, height/2);
+    pigAlive = false;
+    Matter.Engine.stop();
   }
 }
 

@@ -76,7 +76,7 @@ function draw() {
   bird.show();
   pig.show();
 
-  // objectArray.push(new Box(500, 20, 40, 40));
+  // objectArray.push(box);
   // objectArray.push(new Ground(width / 2, height/1.13, width, 20));
 
   // objectArray.push(new SlingShot(200, 520, bird.body));

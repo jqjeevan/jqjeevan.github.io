@@ -1,3 +1,4 @@
+
 class Glass {
   constructor(x, y, w, h) {
     const options = {
@@ -23,5 +24,4 @@ class Glass {
     image(glassImage, 0, 0, this.w, this.h);
     pop();
   }
-
 }

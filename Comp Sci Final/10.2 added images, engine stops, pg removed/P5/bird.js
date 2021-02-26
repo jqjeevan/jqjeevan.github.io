@@ -1,11 +1,11 @@
 
-class Piggy {
+class Bird {
   constructor(x, y, r) {
     const options = {
       restitution: 0.5
     };
     this.body = Matter.Bodies.circle(x, y, r, options);
-    Matter.Body.setMass(this.body, this.body.mass * 3.5);
+    Matter.Body.setMass(this.body, this.body.mass * 2.5);
     Matter.World.add(world, this.body);
     this.r = r;
   }
@@ -17,8 +17,7 @@ class Piggy {
     translate(pos.x, pos.y);
     rotate(angle);
     imageMode(CENTER);
-    image(pigImage, 0, 0, this.r * 2, this.r * 2);
+    image(birdImage, 0, 0, this.r * 2, this.r * 2);
     pop();
   }
-
 }
